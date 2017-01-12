@@ -1,9 +1,13 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) throws WrongChoiceExeption {
 
+		Controller controller = new Controller();
+		
+		@SuppressWarnings("resource")
 		Scanner reader = new Scanner(System.in);
 		while (true) {
 			System.out.println("Please choose an option");
@@ -19,10 +23,18 @@ public class Main {
 
 				switch (choice) {
 				case 1:
-
+						controller.display();
 					break;
 				case 2:
-
+					
+					try {
+						controller.add();
+					//	reader = new Scanner(System.in);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					break;
 				case 3:
 
@@ -34,7 +46,7 @@ public class Main {
 
 					break;
 				case 6:
-
+					System.exit(0);
 					break;
 
 				default:
