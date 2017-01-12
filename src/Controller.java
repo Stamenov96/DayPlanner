@@ -23,17 +23,17 @@ public class Controller {
 		ev.setName(bf.readLine());
 		List.addelement(ev);
 		System.out.println("Please enter the type of your event (Meeting or Task) : ");
-		
+
 		try {
-			typeCheck(bf.readLine(),ev);
+			typeCheck(bf.readLine(), ev);
 		} catch (WrongChoiceExeption e) {
 			e.printStackTrace();
 		}
 
 		System.out.println("Please enter the Marker of your event(Public,Confidential ot Private)");
-	
+
 		try {
-			markerCheck(bf.readLine(),ev);
+			markerCheck(bf.readLine(), ev);
 		} catch (WrongChoiceExeption e) {
 			e.printStackTrace();
 		}
@@ -45,12 +45,16 @@ public class Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		/*
-		 * ev.setDay(day);
-		 * ev.setTime(time);
-		 */
 
+		
+		System.out.println("Please enter the hour of your event in format hh:mm:ss");
+		try {
+			formatTime(bf.readLine(), ev);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		System.out.println("Please enter the DESC of your event");
 		StringBuilder builder = new StringBuilder();
 		String description;
@@ -62,28 +66,35 @@ public class Controller {
 		ev.setDescription(builder.toString());
 	}
 
-	void typeCheck(String type,Event ev) throws WrongChoiceExeption{
-		if(!(type.equalsIgnoreCase("Meeting") || !(type.equalsIgnoreCase("Task")))){
+	void typeCheck(String type, Event ev) throws WrongChoiceExeption {
+		if (!(type.equalsIgnoreCase("Meeting") || (type.equalsIgnoreCase("Task")))) {
 			throw new WrongChoiceExeption();
-		}else{
+		} else {
 			ev.setType(type);
 		}
 	}
-	
-	void markerCheck(String marker,Event ev) throws WrongChoiceExeption{
-		if(!(marker.equalsIgnoreCase("Public") || !(marker.equalsIgnoreCase("Confidential")) || !(marker.equalsIgnoreCase("Private")))){
+
+	void markerCheck(String marker, Event ev) throws WrongChoiceExeption {
+		if (!(marker.equalsIgnoreCase("Public") || !(marker.equalsIgnoreCase("Confidential"))
+				|| !(marker.equalsIgnoreCase("Private")))) {
 			throw new WrongChoiceExeption();
-		}else{
+		} else {
 			ev.setMarker(marker);
 		}
 	}
-	
-	void formatDay(String day,Event ev) throws ParseException{
-		
+
+	void formatDay(String day, Event ev) throws ParseException {
+
 		SimpleDateFormat formatter = new SimpleDateFormat("dd MM yyyy");
-        Date date = formatter.parse(day);
+		Date date = formatter.parse(day);
 		ev.setDay(date);
 	}
-	
+
+	void formatTime(String time, Event ev) throws ParseException {
+
+		SimpleDateFormat formatter = new SimpleDateFormat("kk:mm:ss");
+		Date hour = formatter.parse(time);
+		ev.setTime(hour);
+	}
 
 }
